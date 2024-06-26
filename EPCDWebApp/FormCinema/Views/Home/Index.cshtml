@@ -1,0 +1,50 @@
+﻿@model Biglietto;
+@{
+    ViewData["Title"] = "Home Page";
+    List<SalaCinema> sale = (List<SalaCinema>)ViewData["listaSale"];
+    var tariffe = new List<SelectListItem> { new SelectListItem { Text = "Intero", Value = "i" }, new SelectListItem { Text = "Ridotto", Value = "r" } };
+    var selectSale = new List<SelectListItem> {
+        new SelectListItem{ Text = "Sala Nord", Value="0"}, new SelectListItem{ Text = "Sala Est", Value="1"}, new SelectListItem{ Text = "Sala Sud", Value="2"}
+    };
+}
+
+<div class="text-center">
+    <h1 class="display-4">Acquisto biglietti</h1>
+</div>
+<div class="row">
+    <div class="col">
+        <form asp-action="CreaBiglietto">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tariffa" class="control-label"></label>
+                <select asp-for="Tariffa" asp-items="tariffe" class="form-select" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Sala" class="control-label"></label>
+                <select asp-for="Sala" asp-items="selectSale" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="CreaBiglietto" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>    
+</div>
+<div class="row">
+    @foreach (var sala in sale)
+    {
+        <div class="col-4">
+            <p> @sala.Name </p>
+            <p> @sala.GetAvailableTickets() </p>
+        </div>
+    }
+</div>
