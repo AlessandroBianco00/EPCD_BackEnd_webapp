@@ -24,11 +24,16 @@ namespace FormCinema.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult Index()
+        public IActionResult FormBiglietto()
         {
             var biglietto = new Biglietto();
-            ViewData["listaSale"] = sale;
             return View(biglietto);
+        }
+
+        public IActionResult Index()
+        { 
+            ViewData["listaSale"] = sale;
+            return View();
         }
 
         public IActionResult Privacy()

@@ -6,6 +6,15 @@
         private int posti = 120;
         public List<Biglietto> biglietti = new List<Biglietto>();
 
-        public int GetAvailableTickets() { return posti - biglietti.Count; } 
+        public int GetAvailableTickets() { return posti - biglietti.Count; }
+        public int GetDiscountedTickets()
+        {
+            int discountedTickets = 0;
+            foreach (var ticket in biglietti)
+            {
+                if (ticket.Tariffa.Equals('r')) discountedTickets++;
+            }
+            return discountedTickets;
+        }
     }
 }

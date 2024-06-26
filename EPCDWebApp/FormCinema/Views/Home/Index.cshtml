@@ -1,53 +1,25 @@
-﻿@model Biglietto;
+﻿
 @{
     ViewData["Title"] = "Home Page";
     List<SalaCinema> sale = (List<SalaCinema>)ViewData["listaSale"];
-    var tariffe = new List<SelectListItem> { new SelectListItem { Text = "Intero", Value = "i" }, new SelectListItem { Text = "Ridotto", Value = "r" } };
-    var selectSale = new List<SelectListItem> {
-        new SelectListItem{ Text = "Sala Nord", Value="0"}, new SelectListItem{ Text = "Sala Est", Value="1"}, new SelectListItem{ Text = "Sala Sud", Value="2"}
-    };
 }
 
 <div class="text-center">
-    <h1 class="display-4">Acquisto biglietti</h1>
-</div>
-<div class="row">
-    <div class="col">
-        <form asp-action="CreaBiglietto">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Tariffa" class="control-label"></label>
-                <input type="radio" asp-for="Tariffa" value="i" /> Intero
-                <input type="radio" asp-for="Tariffa" value="r" /> Ridotto
-            </div>
-            <div class="form-group">
-                <label asp-for="Sala" class="control-label"></label>
-                <input type="radio" asp-for="Sala" value="0" /> Sala Nord
-                <input type="radio" asp-for="Sala" value="1" /> Sala Est
-                <input type="radio" asp-for="Sala" value="2" /> Sala Sud
-            </div>
-            <div class="form-group">
-                <input type="submit" value="CreaBiglietto" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>    
+    <h1 class="display-4">Cinema IMIN</h1>
+    <a asp-action="FormBiglietto" class="btn btn-primary mb-2">Vai all'acquisto'</a>
 </div>
 <div class="row">
     @foreach (var sala in sale)
     {
         <div class="col-4">
-            <p> @sala.Name </p>
-            <p> @sala.GetAvailableTickets() </p>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-center fw-bold">@sala.Name</h5>
+                    <p class="card-text d-flex justify-content-between"><span>Biglietti rimanenti :</span> <span>@sala.GetAvailableTickets()</span></p>
+                    <p class="card-text d-flex justify-content-between"><span>Biglietti venduti :</span> <span>@sala.biglietti.Count()</span></p>
+                    <p class="card-text d-flex justify-content-between"><span>Biglietti ridotti venduti :</span> <span>@sala.GetDiscountedTickets()</span></p>
+                </div>
+            </div>
         </div>
     }
 </div>
