@@ -17,7 +17,7 @@ namespace FormCinema.Controllers
         }
 
         [HttpPost]
-        public IActionResult Crea(Biglietto b)
+        public IActionResult CreaBiglietto(Biglietto b)
         {
             int indiceSala = int.Parse(b.Sala);
             sale[indiceSala].biglietti.Add(b);
