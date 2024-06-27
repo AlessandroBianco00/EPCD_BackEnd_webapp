@@ -13,5 +13,8 @@ namespace ElencoMagazzinoWebApp.Services
         }
 
         public IEnumerable<Product> GetAllProducts() => products;
+
+        public Product GetById(int productId) =>
+           products.Single(p => p.ProductId == productId);
     }
 }

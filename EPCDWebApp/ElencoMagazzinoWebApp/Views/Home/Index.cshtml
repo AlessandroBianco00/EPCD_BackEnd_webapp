@@ -17,6 +17,7 @@
                     <tr>
                         <td>@prodotto.ProductName</td>
                         <td>disponilili: @prodotto.QuantityAvailable</td>
+                        <td><a asp-action="Detail" asp-route-id="@prodotto.ProductId" class="btn btn-success">Dettaglio</a></td>
                     </tr>
                 }
             </table>

@@ -1,0 +1,15 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = "Leggi Articolo";
+}
+
+<h1>@Model.ProductName</h1>
+
+<div>
+    @if (ViewBag.Cover != null)
+    {
+        <img src="@ViewBag.Cover" height="200" />
+    }
+</div>
+<div>

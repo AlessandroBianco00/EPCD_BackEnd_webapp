@@ -6,5 +6,6 @@ namespace ElencoMagazzinoWebApp.Services
     {
         public void Create(Product product);
         public IEnumerable<Product> GetAllProducts();
+        public Product GetById(int productId);
     }
 }

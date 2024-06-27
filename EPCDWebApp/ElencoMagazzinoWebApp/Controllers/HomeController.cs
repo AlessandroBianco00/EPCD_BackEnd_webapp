@@ -9,11 +9,13 @@ namespace ElencoMagazzinoWebApp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IProductsService _productsService;
+        private readonly IWebHostEnvironment _env;
 
-        public HomeController(ILogger<HomeController> logger, IProductsService productsService)
+        public HomeController(ILogger<HomeController> logger, IProductsService productsService, IWebHostEnvironment env)
         {
             _logger = logger;
             _productsService = productsService;
+            _env = env;
         }
 
         public IActionResult Index()
@@ -24,15 +26,32 @@ namespace ElencoMagazzinoWebApp.Controllers
 
         public IActionResult AggiungiProdotto()
         {
-            var prodotto = new Product();
             ViewData["ListaProdotti"] = _productsService.GetAllProducts();
-            return View(prodotto);
+            return View(new ProductInputModel());
         }
         [HttpPost]
-        public IActionResult AggiungiProdotto(Product prodotto)
+        public IActionResult AggiungiProdotto(ProductInputModel inputProdotto)
         {
+            var prodotto = new Product { ProductName = inputProdotto.ProductName , Description = inputProdotto.Description, QuantityAvailable = inputProdotto.QuantityAvailable };
             _productsService.Create(prodotto);
+            string uploads = Path.Combine(_env.WebRootPath, "images");
+            if (inputProdotto.ProductPicture.Length > 0)
+            {
+                string filePath = Path.ChangeExtension(Path.Combine(uploads, prodotto.ProductId.ToString()), "jpg");
+                using Stream fileStream = new FileStream(filePath, FileMode.Create);
+                inputProdotto.ProductPicture.CopyTo(fileStream);
+            }
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Detail(int id)
+        {
+            var product = _productsService.GetById(id);
+            string uploads = Path.Combine(_env.WebRootPath, "images");
+            var cover = Path.ChangeExtension(Path.Combine(uploads, product.ProductId.ToString()), "jpg");
+            if (System.IO.File.Exists(cover))
+                ViewBag.Cover = $"/images/{product.ProductId}.jpg";
+            return View(product);
         }
 
         public IActionResult Privacy()
