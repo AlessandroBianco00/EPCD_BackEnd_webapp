@@ -27,6 +27,7 @@ namespace FormCinema.Controllers
         public IActionResult FormBiglietto()
         {
             var biglietto = new Biglietto();
+            ViewData["listaSale"] = sale;
             return View(biglietto);
         }
 
