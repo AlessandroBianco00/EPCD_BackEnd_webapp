@@ -27,8 +27,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Tariffa" class="control-label"></label>
-                <input type="radio" asp-for="Tariffa" value="i" /> Intero
-                <input type="radio" asp-for="Tariffa" value="r" /> Ridotto
+                <select asp-for="Tariffa" class="form-select" asp-items="tariffe"></select>
             </div>
             <div class="form-group">
                 <label asp-for="Sala" class="control-label"></label>
@@ -41,3 +40,9 @@
         </form>
     </div>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
