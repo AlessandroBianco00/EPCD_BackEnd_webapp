@@ -1,7 +1,14 @@
+using ElencoMagazzinoWebApp.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Configurazione dei servizi di applicazione
+builder.Services
+    .AddScoped<IProductsService, ProductsService>()
+    ;
 
 var app = builder.Build();
 

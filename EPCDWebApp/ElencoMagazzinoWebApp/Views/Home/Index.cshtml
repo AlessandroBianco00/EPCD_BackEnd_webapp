@@ -1,8 +1,31 @@
-﻿@{
+﻿@model List<Product>
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Elenco Prodotti in Magazzino</h1>
+    <a asp-action="AggiungiProdotto" class="btn btn-primary mb-2">Aggiungi nuovi prodotti</a>
+</div>
+<div class="row">
+    @if (Model.Any())
+    {
+        <div class="col-8 offset-2">
+            <table class="table table-borderless">
+                @foreach (var prodotto in Model)
+                {
+                    <tr>
+                        <td>@prodotto.ProductName</td>
+                        <td>disponilili: @prodotto.QuantityAvailable</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="col-8 offset-2">
+            <p class="alert alert-warning">Non ci sono prodotti disponibili attualmente</p>
+        </div>
+    }
 </div>
