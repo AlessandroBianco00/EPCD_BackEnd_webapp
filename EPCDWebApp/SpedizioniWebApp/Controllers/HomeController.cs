@@ -28,13 +28,27 @@ namespace SpedizioniWebApp.Controllers
             return View();
         }
 
-        public IActionResult FormPersona()
+        public IActionResult FormPrivato()
         {
+            return View(new Privato());
+        }
+
+        [HttpPost]
+        public IActionResult FormPrivato(Privato privato)
+        {
+            //continua
             return View();
         }
 
         public IActionResult FormAzienda()
         {
+            return View(new Azienda());
+        }
+
+        [HttpPost]
+        public IActionResult FormAzienda(Azienda azienda)
+        {
+            //continua
             return View();
         }
 
