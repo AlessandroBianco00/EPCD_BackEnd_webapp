@@ -28,6 +28,16 @@ namespace SpedizioniWebApp.Controllers
             return View();
         }
 
+        public IActionResult FormPersona()
+        {
+            return View();
+        }
+
+        public IActionResult FormAzienda()
+        {
+            return View();
+        }
+
         public IActionResult RegistraSpedizione()
         {
             return View();

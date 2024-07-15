@@ -85,10 +85,11 @@ body {
   font-size: 2em;
 }
 
-.card-form button {
-  padding: 8px 25px;
+.card-form a {
+  padding: 8px;
+  margin: 3em;
+  margin-top: 50px;
   display: block;
-  margin: auto;
   border-radius: 8px;
   border: none;
   margin-top: 50px;
@@ -97,7 +98,7 @@ body {
   font-weight: 600;
 }
 
-.card-form button:hover {
+.card-form a:hover {
   background: #212121;
   color: #ffffff;
 }
