@@ -1,3 +1,5 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+
 html {
   font-size: 14px;
 }
@@ -17,6 +19,85 @@ html {
   min-height: 100%;
 }
 
+/* Formattazione generale & layout */
 body {
   margin-bottom: 60px;
+}
+
+.dhl-bg {
+    background: rgb(251,209,33);
+    background: linear-gradient(90deg, rgba(251,209,33,1) 0%, rgba(255,217,59,1) 55%, rgba(252,229,130,1) 100%);
+}
+
+.logo-img {
+    width: 10em;
+}
+
+.icon-fa{
+    font-size: 1.5em;
+}
+
+/* Aggiungi cliente */
+
+.card-form {
+  width: 300px;
+  height: 440px;
+  background-image: linear-gradient(144deg,#8608b4, #492fed 60%,#bd6fda);
+  border: none;
+  border-radius: 10px;
+  padding-top: 10px;
+  position: relative;
+  margin: auto;
+  font-family: inherit;
+}
+
+.card-form span {
+  font-weight: 600;
+  color: white;
+  text-align: center;
+  display: block;
+  padding-top: 10px;
+  font-size: 1.3em;
+}
+
+.card-form .job {
+  font-weight: 400;
+  color: white;
+  display: block;
+  text-align: center;
+  padding-top: 5px;
+  font-size: 1em;
+}
+
+.card-form .img {
+  width: 70px;
+  height: 70px;
+  background: #e8e8e8;
+  border-radius: 100%;
+  margin: auto;
+  margin-top: 40px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.card-form .img i{
+  font-size: 2em;
+}
+
+.card-form button {
+  padding: 8px 25px;
+  display: block;
+  margin: auto;
+  border-radius: 8px;
+  border: none;
+  margin-top: 50px;
+  background: #e8e8e8;
+  color: #111111;
+  font-weight: 600;
+}
+
+.card-form button:hover {
+  background: #212121;
+  color: #ffffff;
 }
