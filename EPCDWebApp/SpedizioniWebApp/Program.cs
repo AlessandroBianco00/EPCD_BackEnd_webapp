@@ -1,7 +1,28 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using SpedizioniWebApp.Interfaces;
+using SpedizioniWebApp.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// configurazione dell'autenticazione
+builder.Services
+    .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(opt => {
+        // pagina alla quale l'utente sarà indirizzato se non è stato già riconosciuto
+        opt.LoginPath = "/Account/Login";
+    })
+    ;
+// fine configurazione dell'autenticazione
+
+
+builder.Services
+    .AddScoped<IPrivatoService, PrivatoService>()
+    .AddScoped<IAziendaService, AziendaService>()
+    .AddScoped<IAuthService, AuthService>();
+
 
 var app = builder.Build();
 
