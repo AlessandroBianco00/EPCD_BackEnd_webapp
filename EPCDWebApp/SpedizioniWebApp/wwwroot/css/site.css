@@ -179,11 +179,11 @@ body {
     gap: 6px;
 }
 
-.form-FPA label {
+.form-FPA .label-FPA {
     position: relative;
 }
 
-.form-FPA label .input-FPA {
+.form-FPA .label-FPA .input-FPA {
   background-color: #333;
   color: #fff;
   width: 100%;
@@ -193,7 +193,7 @@ body {
   border-radius: 10px;
 }
 
-.form-FPA label .input-FPA + span {
+.form-FPA .label-FPA .input-FPA + span {
   color: rgba(255, 255, 255, 0.5);
   position: absolute;
   left: 10px;
@@ -203,13 +203,13 @@ body {
   transition: 0.3s ease;
 }
 
-.form-FPA label .input-FPA:placeholder-shown + span {
+.form-FPA .label-FPA .input-FPA:placeholder-shown + span {
   top: 12.5px;
   font-size: 0.9em;
 }
 
-.form-FPA label .input-FPA:focus + span,
-.form-FPA label .input-FPA:valid + span {
+.form-FPA .label-FPA .input-FPA:focus + span,
+.form-FPA .label-FPA .input-FPA:valid + span {
   color: #fbd224;
   top: 0px;
   font-size: 0.7em;

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Privato
+
+@{
 }
 
 <h1 class="text-center fw-bold red-text">Aggiungi un nuovo cliente</h1>
@@ -7,36 +9,48 @@
     <div class="row">
         <div class="col d-flex justify-content-center">
             <form class="form-FPA" asp-action="FormPrivato">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <p class="title-FPA">Aggiungi Privato</p>
                 <p class="message-FPA">Signup now and get full access to our app. </p>
                 <div class="flex-FPA">
-                    <label>
-                        <input class="input-FPA" type="text" placeholder="" required="">
+                    <label class="label-FPA">
+                        <input asp-for="Nome" class="input-FPA" type="text" placeholder="" required="">
                         <span>Nome</span>
+                        <span asp-validation-for="Nome" class="text-danger"></span>
                     </label>
 
-                    <label>
-                        <input class="input-FPA" type="text" placeholder="" required="">
+                    <label class="label-FPA">
+                        <input asp-for="Cognome" class="input-FPA" type="text" placeholder="" required="">
                         <span>Cognome</span>
+                        <span asp-validation-for="Cognome" class="text-danger"></span>
                     </label>
                 </div>
 
-                <label>
-                    <input class="input-FPA" type="text" placeholder="" required="">
+                <label class="label-FPA">
+                    <input asp-for="CodiceFiscale" class="input-FPA" type="text" placeholder="" required="">
                     <span>Codice Fiscale</span>
+                    <span asp-validation-for="CodiceFiscale" class="text-danger"></span>
                 </label>
 
-                <label>
-                    <input class="input-FPA" type="email" placeholder="" required="">
+                <label class="label-FPA">
+                    <input asp-for="Email" class="input-FPA" type="email" placeholder="" required="">
                     <span>Email</span>
+                    <span asp-validation-for="Email" class="text-danger"></span>
                 </label>
 
-                <label>
-                    <input class="input-FPA" type="text" placeholder="" required="">
+                <label class="label-FPA">
+                    <input asp-for="Citta" class="input-FPA" type="text" placeholder="" required="">
                     <span>Città</span>
+                    <span asp-validation-for="Citta" class="text-danger"></span>
                 </label>
                 <button class="submit-FPA fw-bold">Submit</button>
             </form>
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
