@@ -24,6 +24,10 @@ body {
   margin-bottom: 60px;
 }
 
+.red-text {
+    color: #b00004;
+}
+
 .dhl-bg {
     background: rgb(251,209,33);
     background: linear-gradient(90deg, rgba(251,209,33,1) 0%, rgba(255,217,59,1) 55%, rgba(252,229,130,1) 100%);
@@ -102,3 +106,144 @@ body {
   background: #212121;
   color: #ffffff;
 }
+
+/* FormPrivato & FormAzienda */
+
+.form-FPA {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 350px;
+  padding: 20px;
+  border-radius: 20px;
+  position: relative;
+  background-color: #1a1a1a;
+  color: #fff;
+  border: 1px solid #333;
+}
+
+.title-FPA {
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -1px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+    color: #fbd224;
+}
+
+.title-FPA::before {
+  width: 18px;
+  height: 18px;
+}
+
+.title-FPA::after {
+  width: 18px;
+  height: 18px;
+  animation: pulse 1s linear infinite;
+}
+
+.title-FPA::before,
+.title-FPA::after {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  left: 0px;
+  background-color: #fbd224;
+}
+
+.message-FPA,
+.signin-FPA {
+    font-size: 14.5px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.signin-FPA {
+    text-align: center;
+}
+
+.signin-FPA a:hover {
+  text-decoration: underline royalblue;
+}
+
+.signin-FPA a {
+  color: #fbd224;
+}
+
+.flex-FPA {
+    display: flex;
+    width: 100%;
+    gap: 6px;
+}
+
+.form-FPA label {
+    position: relative;
+}
+
+.form-FPA label .input-FPA {
+  background-color: #333;
+  color: #fff;
+  width: 100%;
+  padding: 20px 05px 05px 10px;
+  outline: 0;
+  border: 1px solid rgba(105, 105, 105, 0.397);
+  border-radius: 10px;
+}
+
+.form-FPA label .input-FPA + span {
+  color: rgba(255, 255, 255, 0.5);
+  position: absolute;
+  left: 10px;
+  top: 0px;
+  font-size: 0.9em;
+  cursor: text;
+  transition: 0.3s ease;
+}
+
+.form-FPA label .input-FPA:placeholder-shown + span {
+  top: 12.5px;
+  font-size: 0.9em;
+}
+
+.form-FPA label .input-FPA:focus + span,
+.form-FPA label .input-FPA:valid + span {
+  color: #fbd224;
+  top: 0px;
+  font-size: 0.7em;
+  font-weight: 600;
+}
+
+.input-FPA {
+    font-size: medium;
+}
+
+.submit-FPA {
+    border: none;
+    outline: none;
+    padding: 10px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 16px;
+    transform: .3s ease;
+    background-color: #fbd224;
+}
+
+.submit-FPA:hover {
+  background-color: #fbd22496;
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(0.9);
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+

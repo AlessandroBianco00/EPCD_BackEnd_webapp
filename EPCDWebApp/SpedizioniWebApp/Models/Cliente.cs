@@ -1,4 +1,6 @@
-﻿namespace SpedizioniWebApp.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SpedizioniWebApp.Models
 {
     public class Cliente
     {
@@ -12,8 +14,10 @@
 
         public TipoCliente Tipo { get; set; }
 
+        [Required]
         public string Email { get; set; }
 
+        [Required]
         public string Citta { get; set; }
     }
 }

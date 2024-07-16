@@ -1,4 +1,42 @@
 ﻿@{
 }
 
-<h1>Aggiungi un nuovo cliente</h1>
+<h1 class="text-center fw-bold red-text">Aggiungi un nuovo cliente</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col d-flex justify-content-center">
+            <form class="form-FPA" asp-action="FormPrivato">
+                <p class="title-FPA">Aggiungi Privato</p>
+                <p class="message-FPA">Signup now and get full access to our app. </p>
+                <div class="flex-FPA">
+                    <label>
+                        <input class="input-FPA" type="text" placeholder="" required="">
+                        <span>Nome</span>
+                    </label>
+
+                    <label>
+                        <input class="input-FPA" type="text" placeholder="" required="">
+                        <span>Cognome</span>
+                    </label>
+                </div>
+
+                <label>
+                    <input class="input-FPA" type="text" placeholder="" required="">
+                    <span>Codice Fiscale</span>
+                </label>
+
+                <label>
+                    <input class="input-FPA" type="email" placeholder="" required="">
+                    <span>Email</span>
+                </label>
+
+                <label>
+                    <input class="input-FPA" type="text" placeholder="" required="">
+                    <span>Città</span>
+                </label>
+                <button class="submit-FPA fw-bold">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
