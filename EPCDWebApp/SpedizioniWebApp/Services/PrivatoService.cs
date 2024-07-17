@@ -16,7 +16,7 @@ namespace SpedizioniWebApp.Services
             try
             {
                 var cmd = GetCommand("INSERT INTO Clienti(TipoCliente, Nome, Cognome, CodiceFiscale, Email, Citta) VALUES(@tipocliente, @nome, @cognome, @codicefiscale, @email, @citta)");
-                cmd.Parameters.Add(new SqlParameter("@tipocliente", "Privato"));
+                cmd.Parameters.Add(new SqlParameter("@tipocliente", "p"));
                 cmd.Parameters.Add(new SqlParameter("@nome", privato.Nome));
                 cmd.Parameters.Add(new SqlParameter("@cognome", privato.Cognome));
                 cmd.Parameters.Add(new SqlParameter("@codicefiscale", privato.CodiceFiscale));
@@ -31,7 +31,7 @@ namespace SpedizioniWebApp.Services
             catch (Exception ex)
             {
                 throw new Exception("Errore nella creazione del cliente", ex);
-            }
+            }   
         }
     }
 }

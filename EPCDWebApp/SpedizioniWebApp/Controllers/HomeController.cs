@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SpedizioniWebApp.Interfaces;
 using SpedizioniWebApp.Models;
 using System.Diagnostics;
 
@@ -7,12 +9,17 @@ namespace SpedizioniWebApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IPrivatoService _privatoService;
+        private readonly IAziendaService _aziendaService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IPrivatoService privatoService, IAziendaService aziendaService)
         {
             _logger = logger;
+            _privatoService = privatoService;
+            _aziendaService = aziendaService;
         }
 
+        // VIEW STATICHE
         public IActionResult Index()
         {
             return View();
@@ -23,6 +30,13 @@ namespace SpedizioniWebApp.Controllers
             return View();
         }
 
+        [Authorize]
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        // ACTION AGGIUNTA CLIENTI (PRIVATI & AZIENDE)
         public IActionResult AggiungiCliente()
         {
             return View();
@@ -36,8 +50,8 @@ namespace SpedizioniWebApp.Controllers
         [HttpPost]
         public IActionResult FormPrivato(Privato privato)
         {
-            //continua
-            return View();
+            _privatoService.AggiungiPrivato(privato);
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult FormAzienda()
@@ -48,26 +62,33 @@ namespace SpedizioniWebApp.Controllers
         [HttpPost]
         public IActionResult FormAzienda(Azienda azienda)
         {
-            //continua
-            return View();
+            _aziendaService.AggiungiAzienda(azienda);
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult RegistraSpedizione()
         {
-            return View();
+            return View(new Spedizione());
         }
 
+        [HttpPost]
+        public IActionResult RegistraSpedizione(Spedizione spedizione)
+        {
+            _aziendaService.AggiungiAzienda(spedizione);
+            return RedirectToAction(nameof(Index));
+        }
+
+        // ACTION AMMINISTRAZIONE
+
+
+
+        // ALTRO
         public IActionResult AggiornamentoSpedizione()
         {
             return View();
         }
 
         public IActionResult StatoSpedizioni()
-        {
-            return View();
-        }
-
-        public IActionResult Privacy()
         {
             return View();
         }

@@ -9,7 +9,7 @@ namespace SpedizioniWebApp.Services
 
         public SqlServerServiceBase(IConfiguration config)
         {
-            _connection = new SqlConnection(config.GetConnectionString("Impiegati"));
+            _connection = new SqlConnection(config.GetConnectionString("ServerSpedizioni"));
         }
         protected DbCommand GetCommand(string commandText)
         {

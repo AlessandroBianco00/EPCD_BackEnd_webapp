@@ -11,7 +11,7 @@
             <form class="form-FPA" asp-action="FormPrivato">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <p class="title-FPA">Aggiungi Privato</p>
-                <p class="message-FPA">Signup now and get full access to our app. </p>
+                <p class="message-FPA"></p>
                 <div class="flex-FPA">
                     <label class="label-FPA">
                         <input asp-for="Nome" class="input-FPA" type="text" placeholder="" required="">
@@ -43,7 +43,8 @@
                     <span>Città</span>
                     <span asp-validation-for="Citta" class="text-danger"></span>
                 </label>
-                <button class="submit-FPA fw-bold">Submit</button>
+                <input type="submit" value="Crea" class="btn btn-primary submit-FPA fw-bold" />
+                <button type="button" asp-action="Index" class="btn btn-secondary fw-bold border-button">Torna alla home</button>
             </form>
         </div>
     </div>

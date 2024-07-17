@@ -29,8 +29,7 @@ namespace SpedizioniWebApp.Controllers
                 if (u == null) return RedirectToAction("Index", "Home");
 
                 var claims = new List<Claim> {
-                    new Claim(ClaimTypes.Name, u.Username),
-                    new Claim("FriendlyName", u.FriendlyName)
+                    new Claim(ClaimTypes.Name, u.Username)
                 };
                 u.Roles.ForEach(r => claims.Add(new Claim(ClaimTypes.Role, r)));
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

@@ -1,0 +1,62 @@
+﻿@model Spedizione
+
+@{
+}
+
+<h1 class="text-center fw-bold red-text">Aggiungi un nuovo cliente</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col d-flex justify-content-center">
+            <form class="form-FPA" asp-action="RegistraSpedizione">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <p class="title-FPA">Aggiungi Privato</p>
+                <p class="message-FPA"></p>
+                <div class="flex-FPA">
+                    <label class="label-FPA">
+                        <input asp-for="DataSpedizione" class="input-FPA" type="date" placeholder="" required="">
+                        <span>Data di spedizione</span>
+                        <span asp-validation-for="DataSpedizione" class="text-danger"></span>
+                    </label>
+
+                    <label class="label-FPA">
+                        <input asp-for="Peso" class="input-FPA" type="number" placeholder="" required="">
+                        <span>Peso (kg)</span>
+                        <span asp-validation-for="Peso" class="text-danger"></span>
+                    </label>
+                </div>
+
+                <label class="label-FPA">
+                    <input asp-for="CittaDestinataria" class="input-FPA" type="text" placeholder="" required="">
+                    <span>Citta destinataria</span>
+                    <span asp-validation-for="CittaDestinataria" class="text-danger"></span>
+                </label>
+
+                <label class="label-FPA">
+                    <input asp-for="Indirizzo" class="input-FPA" type="text" placeholder="" required="">
+                    <span>Indirizzo</span>
+                    <span asp-validation-for="Indirizzo" class="text-danger"></span>
+                </label>
+
+                <label class="label-FPA">
+                    <input asp-for="CostoSpedizione" class="input-FPA" type="number" placeholder="" required="">
+                    <span>Costo Spedizione</span>
+                    <span asp-validation-for="CostoSpedizione" class="text-danger"></span>
+                </label>
+                <label class="label-FPA">
+                    <input asp-for="DataConsegna" class="input-FPA" type="number" placeholder="" required="">
+                    <span>Data di consegna</span>
+                    <span asp-validation-for="DataConsegna" class="text-danger"></span>
+                </label>
+                <input type="submit" value="Registra spedizione" class="btn btn-primary submit-FPA fw-bold" />
+                <button type="button" asp-action="Index" class="btn btn-secondary fw-bold border-button">Torna alla home</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

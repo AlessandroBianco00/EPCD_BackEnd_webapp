@@ -8,12 +8,12 @@ namespace SpedizioniWebApp.Services
     {
         private string connectionString;
 
-        private const string LOGIN_COMMAND = "SELECT Id, FriendlyName FROM Users WHERE Username = @user AND Password = @pass";
-        private const string ROLES_COMMAND = "SELECT RoleName FROM Roles ro JOIN UserRoles ur ON ro.Id = ur.RoleId WHERE UserId = @id";
+        private const string LOGIN_COMMAND = "SELECT UtenteId, Username, Password FROM Utenti WHERE Username = @username AND Password = @password";
+        private const string ROLES_COMMAND = "SELECT NomeRuolo FROM Ruoli ro JOIN RuoliUtenti ur ON ro.RuoloId = ur.RuoloId_FK WHERE UtenteId_FK = @id";
 
         public AuthService(IConfiguration config)
         {
-            connectionString = config.GetConnectionString("AuthDb")!;
+            connectionString = config.GetConnectionString("ServerSpedizioni")!;
         }
 
         public Utente Login(string username, string password)
@@ -23,12 +23,12 @@ namespace SpedizioniWebApp.Services
                 using var conn = new SqlConnection(connectionString);
                 conn.Open();
                 using var cmd = new SqlCommand(LOGIN_COMMAND, conn);
-                cmd.Parameters.AddWithValue("@user", username);
-                cmd.Parameters.AddWithValue("@pass", password);
+                cmd.Parameters.AddWithValue("@username", username);
+                cmd.Parameters.AddWithValue("@password", password);
                 using var r = cmd.ExecuteReader();
                 if (r.Read())
                 {
-                    var u = new Utente { Id = r.GetInt32(0), Password = password, Username = username, FriendlyName = r.GetString(1) };
+                    var u = new Utente { Id = r.GetInt32(0), Password = password, Username = username };
                     r.Close();
                     using var roleCmd = new SqlCommand(ROLES_COMMAND, conn);
                     roleCmd.Parameters.AddWithValue("@id", u.Id);
