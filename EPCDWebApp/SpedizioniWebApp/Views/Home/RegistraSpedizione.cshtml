@@ -3,14 +3,14 @@
 @{
 }
 
-<h1 class="text-center fw-bold red-text">Aggiungi un nuovo cliente</h1>
+<h1 class="text-center fw-bold red-text">Aggiungi una nuova spedizione</h1>
 
 <div class="container">
     <div class="row">
         <div class="col d-flex justify-content-center">
             <form class="form-FPA" asp-action="RegistraSpedizione">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <p class="title-FPA">Aggiungi Privato</p>
+                <p class="title-FPA">Registra Spedizione</p>
                 <p class="message-FPA"></p>
                 <div class="flex-FPA">
                     <label class="label-FPA">
@@ -44,7 +44,7 @@
                     <span asp-validation-for="CostoSpedizione" class="text-danger"></span>
                 </label>
                 <label class="label-FPA">
-                    <input asp-for="DataConsegna" class="input-FPA" type="number" placeholder="" required="">
+                    <input asp-for="DataConsegna" class="input-FPA" type="date" placeholder="" required="">
                     <span>Data di consegna</span>
                     <span asp-validation-for="DataConsegna" class="text-danger"></span>
                 </label>

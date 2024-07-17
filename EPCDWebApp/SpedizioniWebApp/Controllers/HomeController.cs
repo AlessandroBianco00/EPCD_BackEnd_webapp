@@ -11,12 +11,14 @@ namespace SpedizioniWebApp.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IPrivatoService _privatoService;
         private readonly IAziendaService _aziendaService;
+        private readonly ISpedizioneService _spedizioneService;
 
-        public HomeController(ILogger<HomeController> logger, IPrivatoService privatoService, IAziendaService aziendaService)
+        public HomeController(ILogger<HomeController> logger, IPrivatoService privatoService, IAziendaService aziendaService, ISpedizioneService spedizioneService)
         {
             _logger = logger;
             _privatoService = privatoService;
             _aziendaService = aziendaService;
+            _spedizioneService = spedizioneService;
         }
 
         // VIEW STATICHE
@@ -74,7 +76,7 @@ namespace SpedizioniWebApp.Controllers
         [HttpPost]
         public IActionResult RegistraSpedizione(Spedizione spedizione)
         {
-            _aziendaService.AggiungiAzienda(spedizione);
+            _spedizioneService.AggiungiSpedizione(spedizione);
             return RedirectToAction(nameof(Index));
         }
 

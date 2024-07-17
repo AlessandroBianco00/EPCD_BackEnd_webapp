@@ -11,11 +11,14 @@ namespace SpedizioniWebApp.Services
         {
         }
 
+        private const string INSERT_COMMAND = "INSERT INTO Clienti(TipoCliente, Nome, Cognome, CodiceFiscale, Email, Citta) VALUES(@tipocliente, @nome, @cognome, @codicefiscale, @email, @citta)";
+        private const string SELECT_ALL_COMMAND = "";
+
         public void AggiungiPrivato(Privato privato)
         {
             try
             {
-                var cmd = GetCommand("INSERT INTO Clienti(TipoCliente, Nome, Cognome, CodiceFiscale, Email, Citta) VALUES(@tipocliente, @nome, @cognome, @codicefiscale, @email, @citta)");
+                var cmd = GetCommand(INSERT_COMMAND);
                 cmd.Parameters.Add(new SqlParameter("@tipocliente", "p"));
                 cmd.Parameters.Add(new SqlParameter("@nome", privato.Nome));
                 cmd.Parameters.Add(new SqlParameter("@cognome", privato.Cognome));
@@ -32,6 +35,11 @@ namespace SpedizioniWebApp.Services
             {
                 throw new Exception("Errore nella creazione del cliente", ex);
             }   
+        }
+
+        public void GetAllPrivati()
+        {
+
         }
     }
 }
