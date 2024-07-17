@@ -3,29 +3,34 @@
 @{
 }
 
-<table class="ui celled table">
+<table class="table">
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Job</th>
+            <th>Id</th>
+            <th>Id Cliente</th>
+            <th>Data di spedizione</th>
+            <th>Consegna prevista</th>
+            <th>Destinazione</th>
+            <th>Indirizzo</th>
+            <th>Costo di spedizione</th>
+            <th>Peso (kg)</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td data-label="Name">James</td>
-            <td data-label="Age">24</td>
-            <td data-label="Job">Engineer</td>
-        </tr>
-        <tr>
-            <td data-label="Name">Jill</td>
-            <td data-label="Age">26</td>
-            <td data-label="Job">Engineer</td>
-        </tr>
-        <tr>
-            <td data-label="Name">Elyse</td>
-            <td data-label="Age">24</td>
-            <td data-label="Job">Designer</td>
-        </tr>
+        @foreach (var spedizione in Model)
+        {
+            <tr>
+                <td>@spedizione.SpedizioneId</td>
+                <td>@spedizione.ClienteId</td>
+                <td>@spedizione.DataSpedizione</td>
+                <td>@spedizione.DataConsegna</td>
+                <td>@spedizione.CittaDestinataria</td>
+                <td>@spedizione.Indirizzo</td>
+                <td>@spedizione.CostoSpedizione &euro;</td>
+                <td>@spedizione.Peso</td>
+                <td><button class="btn btn-dark fw-bold">Inserisci aggiornamento</button></td> @* collegare asp action con id*@
+            </tr>
+        }
     </tbody>
 </table>
