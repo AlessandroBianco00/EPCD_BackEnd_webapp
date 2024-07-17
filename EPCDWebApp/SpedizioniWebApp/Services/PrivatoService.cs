@@ -1,4 +1,5 @@
-﻿using SpedizioniWebApp.Interfaces;
+﻿using Microsoft.Extensions.Logging;
+using SpedizioniWebApp.Interfaces;
 using SpedizioniWebApp.Models;
 using System.Data.SqlClient;
 
@@ -12,7 +13,7 @@ namespace SpedizioniWebApp.Services
         }
 
         private const string INSERT_COMMAND = "INSERT INTO Clienti(TipoCliente, Nome, Cognome, CodiceFiscale, Email, Citta) VALUES(@tipocliente, @nome, @cognome, @codicefiscale, @email, @citta)";
-        private const string SELECT_ALL_COMMAND = "";
+        private const string SELECT_ALL_COMMAND = "SELECT ClienteId, Nome, Cognome, CodiceFiscale, Email, Citta FROM Clienti WHERE TipoCliente = 'p'";
 
         public void AggiungiPrivato(Privato privato)
         {
@@ -37,9 +38,33 @@ namespace SpedizioniWebApp.Services
             }   
         }
 
-        public void GetAllPrivati()
+        public List<Privato> GetAllPrivati()
         {
-
+            var list = new List<Privato>();
+            try
+            
+            {
+                using var conn = GetConnection();
+                conn.Open();
+                using var cmd = GetCommand(SELECT_ALL_COMMAND);
+                using var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                    list.Add(new Privato
+                    {
+                        Id = reader.GetInt32(0),
+                        Nome = reader.GetString(1),
+                        Cognome = reader.GetString(2),
+                        CodiceFiscale = reader.GetString(3),
+                        Email = reader.GetString(4),
+                        Citta = reader.GetString(5)
+                    });
+                conn.Close();
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore nel recupero clienti", ex);
+            }
         }
     }
 }

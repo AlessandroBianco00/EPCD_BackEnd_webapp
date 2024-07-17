@@ -1,9 +1,9 @@
 ﻿@model Spedizione
 
 @{
+    List<Privato> privati = ViewBag.Privati;
+    List<Azienda> aziende = ViewBag.Aziende;
 }
-
-<h1 class="text-center fw-bold red-text">Aggiungi una nuova spedizione</h1>
 
 <div class="container">
     <div class="row">
@@ -12,6 +12,19 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <p class="title-FPA">Registra Spedizione</p>
                 <p class="message-FPA"></p>
+                <label class="label-FPA">
+                    <label asp-for="ClienteId" class="control-label"></label>
+                    <select asp-for="ClienteId" class="form-select input-FPA">
+                        @foreach(var cliente in privati) {
+                            <option value="@cliente.Id">@cliente.Nome @cliente.Cognome</option>
+                        }
+                        @foreach (var cliente in aziende)
+                        {
+                            <option value="@cliente.Id">@cliente.RagioneSociale</option>
+                        }
+                    </select>
+                    <span asp-validation-for="ClienteId" class="text-danger"></span>
+                </label>
                 <div class="flex-FPA">
                     <label class="label-FPA">
                         <input asp-for="DataSpedizione" class="input-FPA" type="date" placeholder="" required="">

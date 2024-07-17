@@ -70,6 +70,10 @@ namespace SpedizioniWebApp.Controllers
 
         public IActionResult RegistraSpedizione()
         {
+            var privati = _privatoService.GetAllPrivati();
+            ViewBag.Privati = privati;
+            var aziende = _aziendaService.GetAllAziende();
+            ViewBag.Aziende = aziende;
             return View(new Spedizione());
         }
 
@@ -82,7 +86,11 @@ namespace SpedizioniWebApp.Controllers
 
         // ACTION AMMINISTRAZIONE
 
-
+        public IActionResult ProssimeSpedizioni()
+        {
+            var spedizioni = _spedizioneService.GetProssimeSpedizioni();
+            return View(spedizioni);
+        }
 
         // ALTRO
         public IActionResult AggiornamentoSpedizione()
