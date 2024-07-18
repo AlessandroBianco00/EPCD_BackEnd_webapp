@@ -1,0 +1,40 @@
+﻿@model List<Aggiornamento>
+
+@functions {
+    public string GetStatusDescription(char statoAggiornamento)
+    {
+        switch (statoAggiornamento)
+        {
+            case '1':
+                return "In transito";
+            case '2':
+                return "In Consegna";
+            case '3':
+                return "Consegnato";
+            case '4':
+                return "Non Consegnato";
+            default:
+                return "Non rintracciabile";
+        }
+    }
+}
+@{
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            @foreach (var agg in Model)
+            {
+                <div class="notification">
+                    <div class="notiglow"></div>
+                    <div class="notiborderglow"></div>
+                    <div class="notititle">@GetStatusDescription(agg.StatoAggiornamento) - Spedizione @agg.IdSpedizione</div>
+                    <div class="notibody">Posizione: @agg.PosizioneAttuale</div>
+                    <div class="notibody">Orario: @agg.DataAggiornamento</div>
+                    <div class="notibody"> @agg.Descrizione</div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

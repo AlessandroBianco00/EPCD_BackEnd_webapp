@@ -12,6 +12,7 @@ namespace SpedizioniWebApp.Services
 
         private const string INSERT_COMMAND = "INSERT INTO Aggiornamenti(SpedizioneId_FK, PosizioneAttuale, Descrizione, StatoAggiornamento) VALUES(@spedizioneId, @posizioneAttuale, @descrizione, @statoAggiornamento)";
         private const string SELECT_BY_ID_COMMAND = "SELECT AggiornamentoId, SpedizioneId_FK, PosizioneAttuale, Descrizione, DataAggiornamento, StatoAggiornamento FROM Aggiornamenti WHERE SpedizioneId_FK = @id";
+        private const string VERIFY_SPEDIZIONE = "SELECT a.AggiornamentoId, a.SpedizioneId_FK, a.PosizioneAttuale, a.Descrizione, a.DataAggiornamento, a.StatoAggiornamento FROM Aggiornamenti a JOIN Spedizioni AS s ON a.SpedizioneId_FK = s.SpedizioneId JOIN Clienti AS c ON s.ClienteId = c.ClienteId WHERE (c.CodiceFiscale = @CFOrPIVA OR c.PartitaIVA = @CFOrPIVA) AND s.SpedizioneId = @NumeroSpedizione ORDER BY a.DataAggiornamento DESC";
 
         public void AggiungiAggiornamento(Aggiornamento aggiornamento, int id)
         {
@@ -61,6 +62,33 @@ namespace SpedizioniWebApp.Services
             {
                 throw new Exception("Errore nel recupero clienti", ex);
             }
+        }
+
+        public IEnumerable<Aggiornamento> StatoSpedizioni(string CFOrPIVA, int NumeroSpedizone)
+        {
+            var list = new List<Aggiornamento>();
+            var cmd = GetCommand(VERIFY_SPEDIZIONE);
+            cmd.Parameters.Add(new SqlParameter("@CFOrPIVA", CFOrPIVA));
+            cmd.Parameters.Add(new SqlParameter("@NumeroSpedizione", NumeroSpedizone));
+            using var conn = GetConnection();
+            conn.Open();
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                list.Add(
+                new Aggiornamento
+                {
+                    Id = reader.GetInt32(0),
+                    IdSpedizione = reader.GetInt32(1),
+                    PosizioneAttuale = reader.GetString(2),
+                    Descrizione = reader.GetString(3),
+                    DataAggiornamento = reader.GetDateTime(4),
+                    StatoAggiornamento = reader.GetChar(5)
+                });
+            }
+
+            return list;
+
         }
     }
 }

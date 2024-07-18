@@ -35,14 +35,21 @@ namespace SpedizioniWebApp.Controllers
         }
 
         // ALTRO
-        public IActionResult AggiornamentoSpedizione()
+        /*public IActionResult AggiornamentoSpedizione()
         {
             return View();
-        }
+        } non necessaria  */
 
         public IActionResult StatoSpedizioni()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult StatoSpedizioni(int numeroSpedizione, string CForIVA)
+        {
+            var aggiornamenti = _dbContext.Aggiornamenti.StatoSpedizioni(CForIVA, numeroSpedizione);
+            return View("AggiornamentoSpedizione", aggiornamenti);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

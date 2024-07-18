@@ -6,6 +6,8 @@ namespace SpedizioniWebApp.Interfaces
     {
         void AggiungiAggiornamento(Aggiornamento aggiornamento, int id);
 
-        public List<Aggiornamento> GetAllAggiornamenti();
+        List<Aggiornamento> GetAllAggiornamenti();
+
+        IEnumerable<Aggiornamento> StatoSpedizioni(string CFOrPIVA, int NumeroSpedizone);
     }
 }
