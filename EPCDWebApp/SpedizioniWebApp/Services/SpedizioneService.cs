@@ -12,7 +12,7 @@ namespace SpedizioniWebApp.Services
 
         private const string INSERT_COMMAND = "INSERT INTO Spedizioni(ClienteId, DataSpedizione, Peso, CittaDestinataria, Indirizzo, CostoSpedizione, DataConsegna) VALUES(@clienteId, @dataSpedizione, @peso, @cittaDestinataria, @indirizzo, @costoSpedizione, @dataConsegna)";
         private const string SELECT_NEXT_COMMAND = "SELECT SpedizioneId, ClienteId, DataSpedizione, Peso, CittaDestinataria, Indirizzo, CostoSpedizione, DataConsegna FROM Spedizioni WHERE DataConsegna >= GETDATE()";
-
+        private const string SELECT_TODAY_COMMAND = "SELECT SpedizioneId, ClienteId, DataSpedizione, Peso, CittaDestinataria, Indirizzo, CostoSpedizione, DataConsegna FROM Spedizioni WHERE CONVERT(date, DataConsegna) = CONVERT(date, GETDATE())";
         public void AggiungiSpedizione(Spedizione spedizione)
         {
             try
@@ -46,6 +46,36 @@ namespace SpedizioniWebApp.Services
                 using var conn = GetConnection();
                 conn.Open();
                 using var cmd = GetCommand(SELECT_NEXT_COMMAND);
+                using var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                    list.Add(new Spedizione
+                    {
+                        SpedizioneId = reader.GetInt32(0),
+                        ClienteId = reader.GetInt32(1),
+                        DataSpedizione = reader.GetDateTime(2),
+                        Peso = reader.GetDecimal(3),
+                        CittaDestinataria = reader.GetString(4),
+                        Indirizzo = reader.GetString(5),
+                        CostoSpedizione = reader.GetDecimal(6),
+                        DataConsegna = reader.GetDateTime(7)
+                    });
+                conn.Close();
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore nel recupero spedizioni", ex);
+            }
+        }
+
+        public List<Spedizione> GetSpedizioniDiOggi()
+        {
+            var list = new List<Spedizione>();
+            try
+            {
+                using var conn = GetConnection();
+                conn.Open();
+                using var cmd = GetCommand(SELECT_TODAY_COMMAND);
                 using var reader = cmd.ExecuteReader();
                 while (reader.Read())
                     list.Add(new Spedizione

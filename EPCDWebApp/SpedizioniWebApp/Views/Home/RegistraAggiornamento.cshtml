@@ -1,0 +1,45 @@
+﻿@model Aggiornamento
+
+@{
+    var id = ViewBag.Id;
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col d-flex justify-content-center">
+            <form class="form-FPA" asp-action="RegistraAggiornamento">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <p class="title-FPA">Registra aggiornamento della spedizione @id</p>
+                <p class="message-FPA"></p>
+                <label class="label-FPA">
+                    <label asp-for="StatoAggiornamento" class="control-label"></label>
+                    <select asp-for="StatoAggiornamento" class="form-select input-FPA">
+                        <option value="1">In transito</option>
+                        <option value="2">In consegna</option>
+                        <option value="3">Consegnato</option>
+                        <option value="4">Non consegnato</option>
+                    </select>
+                    <span asp-validation-for="StatoAggiornamento" class="text-danger"></span>
+                </label>
+                <label class="label-FPA">
+                    <input asp-for="PosizioneAttuale" class="input-FPA" type="text" placeholder="" required="">
+                    <span>Posizione attuale</span>
+                    <span asp-validation-for="PosizioneAttuale" class="text-danger"></span>
+                </label>
+                <label class="label-FPA">
+                    <input asp-for="Descrizione" class="input-FPA" type="text" placeholder="" required="">
+                    <span>Descrizione</span>
+                    <span asp-validation-for="Descrizione" class="text-danger"></span>
+                </label>
+                <input type="submit" value="Registra aggiornamento" class="btn btn-primary submit-FPA fw-bold" />
+                <button type="button" asp-action="Index" class="btn btn-secondary fw-bold border-button">Torna alla home</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

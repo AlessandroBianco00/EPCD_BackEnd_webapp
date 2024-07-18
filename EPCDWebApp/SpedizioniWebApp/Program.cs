@@ -22,6 +22,7 @@ builder.Services
     .AddScoped<IPrivatoService, PrivatoService>()
     .AddScoped<IAziendaService, AziendaService>()
     .AddScoped<ISpedizioneService, SpedizioneService>()
+    .AddScoped<IAggiornamentoService, AggiornamentoService>()
     .AddScoped<IAuthService, AuthService>();
 
 

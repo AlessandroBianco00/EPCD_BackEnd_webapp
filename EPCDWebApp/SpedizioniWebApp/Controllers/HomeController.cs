@@ -12,13 +12,15 @@ namespace SpedizioniWebApp.Controllers
         private readonly IPrivatoService _privatoService;
         private readonly IAziendaService _aziendaService;
         private readonly ISpedizioneService _spedizioneService;
+        private readonly IAggiornamentoService _aggiornamentoService;
 
-        public HomeController(ILogger<HomeController> logger, IPrivatoService privatoService, IAziendaService aziendaService, ISpedizioneService spedizioneService)
+        public HomeController(ILogger<HomeController> logger, IPrivatoService privatoService, IAziendaService aziendaService, ISpedizioneService spedizioneService, IAggiornamentoService aggiornamentoService)
         {
             _logger = logger;
             _privatoService = privatoService;
             _aziendaService = aziendaService;
             _spedizioneService = spedizioneService;
+            _aggiornamentoService = aggiornamentoService;
         }
 
         // VIEW STATICHE
@@ -84,12 +86,31 @@ namespace SpedizioniWebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public IActionResult RegistraAggiornamento(int id)
+        {
+            ViewBag.Id = id;
+            return View(new Aggiornamento());
+        }
+
+        [HttpPost]
+        public IActionResult RegistraAggiornamento(Aggiornamento aggiornamento, int id)
+        {
+            _aggiornamentoService.AggiungiAggiornamento(aggiornamento, id);
+            return RedirectToAction(nameof(Index));
+        }
+
         // ACTION AMMINISTRAZIONE
 
         public IActionResult ProssimeSpedizioni()
         {
             var spedizioni = _spedizioneService.GetProssimeSpedizioni();
             return View(spedizioni);
+        }
+
+        public IActionResult QueryAmministrazione()
+        {
+            List<Spedizione> spedizioniOdierne = _spedizioneService.GetSpedizioniDiOggi();
+            return View(spedizioniOdierne);
         }
 
         // ALTRO

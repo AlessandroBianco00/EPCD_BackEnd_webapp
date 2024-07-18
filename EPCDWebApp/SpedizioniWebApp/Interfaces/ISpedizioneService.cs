@@ -7,5 +7,7 @@ namespace SpedizioniWebApp.Interfaces
         void AggiungiSpedizione(Spedizione spedizione);
 
         public List<Spedizione> GetProssimeSpedizioni();
+
+        public List<Spedizione> GetSpedizioniDiOggi();
     }
 }
