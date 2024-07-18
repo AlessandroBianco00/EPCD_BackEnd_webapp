@@ -9,18 +9,12 @@ namespace SpedizioniWebApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IPrivatoService _privatoService;
-        private readonly IAziendaService _aziendaService;
-        private readonly ISpedizioneService _spedizioneService;
-        private readonly IAggiornamentoService _aggiornamentoService;
+        private readonly DbContext _dbContext;
 
-        public HomeController(ILogger<HomeController> logger, IPrivatoService privatoService, IAziendaService aziendaService, ISpedizioneService spedizioneService, IAggiornamentoService aggiornamentoService)
+        public HomeController(ILogger<HomeController> logger, DbContext dbContext)
         {
             _logger = logger;
-            _privatoService = privatoService;
-            _aziendaService = aziendaService;
-            _spedizioneService = spedizioneService;
-            _aggiornamentoService = aggiornamentoService;
+            _dbContext = dbContext;
         }
 
         // VIEW STATICHE
@@ -38,83 +32,6 @@ namespace SpedizioniWebApp.Controllers
         public IActionResult Privacy()
         {
             return View();
-        }
-
-        // ACTION AGGIUNTA CLIENTI (PRIVATI & AZIENDE)
-        public IActionResult AggiungiCliente()
-        {
-            return View();
-        }
-
-        public IActionResult FormPrivato()
-        {
-            return View(new Privato());
-        }
-
-        [HttpPost]
-        public IActionResult FormPrivato(Privato privato)
-        {
-            _privatoService.AggiungiPrivato(privato);
-            return RedirectToAction(nameof(Index));
-        }
-
-        public IActionResult FormAzienda()
-        {
-            return View(new Azienda());
-        }
-
-        [HttpPost]
-        public IActionResult FormAzienda(Azienda azienda)
-        {
-            _aziendaService.AggiungiAzienda(azienda);
-            return RedirectToAction(nameof(Index));
-        }
-
-        public IActionResult RegistraSpedizione()
-        {
-            var privati = _privatoService.GetAllPrivati();
-            ViewBag.Privati = privati;
-            var aziende = _aziendaService.GetAllAziende();
-            ViewBag.Aziende = aziende;
-            return View(new Spedizione());
-        }
-
-        [HttpPost]
-        public IActionResult RegistraSpedizione(Spedizione spedizione)
-        {
-            _spedizioneService.AggiungiSpedizione(spedizione);
-            return RedirectToAction(nameof(Index));
-        }
-
-        public IActionResult RegistraAggiornamento(int id)
-        {
-            ViewBag.Id = id;
-            return View(new Aggiornamento());
-        }
-
-        [HttpPost]
-        public IActionResult RegistraAggiornamento(Aggiornamento aggiornamento, int id)
-        {
-            _aggiornamentoService.AggiungiAggiornamento(aggiornamento, id);
-            return RedirectToAction(nameof(Index));
-        }
-
-        // ACTION AMMINISTRAZIONE
-
-        public IActionResult ProssimeSpedizioni()
-        {
-            var spedizioni = _spedizioneService.GetProssimeSpedizioni();
-            return View(spedizioni);
-        }
-
-        public IActionResult QueryAmministrazione()
-        {
-            int numeroSpedizioni = _spedizioneService.GetNumeroSpedizioni();
-            ViewBag.NumeroSpedizioni = numeroSpedizioni;
-            Dictionary<string, int> spedizioniCitta = _spedizioneService.GetSpedizioniPerCitta();
-            ViewBag.SpedizioniCitta = spedizioniCitta;
-            List <Spedizione> spedizioniOdierne = _spedizioneService.GetSpedizioniDiOggi();
-            return View(spedizioniOdierne);
         }
 
         // ALTRO

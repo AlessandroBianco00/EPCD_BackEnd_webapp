@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using SpedizioniWebApp.Interfaces;
 using SpedizioniWebApp.Services;
+using SpedizioniWebApp;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,12 +18,16 @@ builder.Services
     ;
 // fine configurazione dell'autenticazione
 
+builder.Services
+    .AddAuthorization(opt => {
+        opt.AddPolicy(Policies.LoggedIn, cfg => cfg.RequireAuthenticatedUser());
+        opt.AddPolicy(Policies.IsAdmin, cfg => cfg.RequireRole("Admin"));
+        opt.AddPolicy(Policies.IsBaseUser, cfg => cfg.RequireRole("Cliente"));
+    });
 
 builder.Services
-    .AddScoped<IPrivatoService, PrivatoService>()
-    .AddScoped<IAziendaService, AziendaService>()
-    .AddScoped<ISpedizioneService, SpedizioneService>()
-    .AddScoped<IAggiornamentoService, AggiornamentoService>()
+    .RegisterDAOs()
+    .AddScoped<DbContext>() 
     .AddScoped<IAuthService, AuthService>();
 
 
