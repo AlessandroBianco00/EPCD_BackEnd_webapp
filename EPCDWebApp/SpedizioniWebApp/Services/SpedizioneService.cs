@@ -13,6 +13,8 @@ namespace SpedizioniWebApp.Services
         private const string INSERT_COMMAND = "INSERT INTO Spedizioni(ClienteId, DataSpedizione, Peso, CittaDestinataria, Indirizzo, CostoSpedizione, DataConsegna) VALUES(@clienteId, @dataSpedizione, @peso, @cittaDestinataria, @indirizzo, @costoSpedizione, @dataConsegna)";
         private const string SELECT_NEXT_COMMAND = "SELECT SpedizioneId, ClienteId, DataSpedizione, Peso, CittaDestinataria, Indirizzo, CostoSpedizione, DataConsegna FROM Spedizioni WHERE DataConsegna >= GETDATE()";
         private const string SELECT_TODAY_COMMAND = "SELECT SpedizioneId, ClienteId, DataSpedizione, Peso, CittaDestinataria, Indirizzo, CostoSpedizione, DataConsegna FROM Spedizioni WHERE CONVERT(date, DataConsegna) = CONVERT(date, GETDATE())";
+        private const string SELECT_NUMBER_COMMAND = "SELECT COUNT(SpedizioneId) AS TotaleConsegneFuture FROM Spedizioni WHERE CONVERT(date, DataConsegna) >= CONVERT(date, GETDATE())";
+        private const string SELECT_CITIES_COMMAND = "SELECT CittaDestinataria, COUNT(SpedizioneId) FROM Spedizioni GROUP BY CittaDestinataria";
         public void AggiungiSpedizione(Spedizione spedizione)
         {
             try
@@ -96,6 +98,40 @@ namespace SpedizioniWebApp.Services
             {
                 throw new Exception("Errore nel recupero spedizioni", ex);
             }
+        }
+
+        public int GetNumeroSpedizioni()
+        {
+            try
+            {
+                var cmd = GetCommand(SELECT_NUMBER_COMMAND);
+                var conn = GetConnection();
+                conn.Open();
+                var result = (int) cmd.ExecuteScalar();
+                conn.Close();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore della spedizione", ex);
+            }
+        }
+
+        public Dictionary<string, int> GetSpedizioniPerCitta()
+        {
+            var SpedizioniPerCitta = new Dictionary<string, int>();
+            var cmd = GetCommand(SELECT_CITIES_COMMAND);
+            var conn = GetConnection();
+            conn.Open();
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                string CittaDestinaria = reader.GetString(0);
+                int numeroSpedizioni = reader.GetInt32(1);
+                SpedizioniPerCitta[CittaDestinaria] = numeroSpedizioni;
+            }
+            conn.Close();
+            return SpedizioniPerCitta;
         }
     }
 }

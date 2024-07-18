@@ -1,6 +1,8 @@
 ﻿@model List<Spedizione>
 
 @{
+    var numeroSpedizioni = ViewBag.NumeroSpedizioni;
+    Dictionary<string, int> spedizioniCitta = ViewBag.SpedizioniCitta;
 }
 
 <h1 class="red-text fw-bold">Spedizioni di oggi</h1>
@@ -33,6 +35,34 @@
                     <td>@spedizione.CostoSpedizione &euro;</td>
                     <td>@spedizione.Peso</td>
                     <td><a class="btn btn-dark fw-bold" asp-controller="Home" asp-action="RegistraAggiornamento" asp-route-id="@spedizione.SpedizioneId">Inserisci aggiornamento</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<br />
+
+<h1><span class="red-text fw-bold"> Spedizioni non ancora effettuate </span> : @numeroSpedizioni</h1>
+
+<br />
+
+<h1 class="red-text fw-bold">Spedizioni per città</h1>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Città</th>
+                <th>N° spedizioni</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var entry in spedizioniCitta)
+            {
+                <tr>
+                    <td>@entry.Key</td>
+                    <td>@entry.Value</td>
                 </tr>
             }
         </tbody>

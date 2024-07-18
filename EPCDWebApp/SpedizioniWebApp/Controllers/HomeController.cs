@@ -109,7 +109,11 @@ namespace SpedizioniWebApp.Controllers
 
         public IActionResult QueryAmministrazione()
         {
-            List<Spedizione> spedizioniOdierne = _spedizioneService.GetSpedizioniDiOggi();
+            int numeroSpedizioni = _spedizioneService.GetNumeroSpedizioni();
+            ViewBag.NumeroSpedizioni = numeroSpedizioni;
+            Dictionary<string, int> spedizioniCitta = _spedizioneService.GetSpedizioniPerCitta();
+            ViewBag.SpedizioniCitta = spedizioniCitta;
+            List <Spedizione> spedizioniOdierne = _spedizioneService.GetSpedizioniDiOggi();
             return View(spedizioniOdierne);
         }
 
